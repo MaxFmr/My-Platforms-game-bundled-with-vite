@@ -21,21 +21,21 @@ Welcome to the Platform Game Project, a classic side-scrolling platformer built 
 
 1. Clone the repository
 
-git clone https://github.com/[YourGithubUsername]/platform-game-project.git
+``git clone https://github.com/[YourGithubUsername]/platform-game-project.git``
 
 
 2. Navigate to the project directory
 
-cd platform-game-project
+``cd platform-game-project``
 
 
 3. Install the dependencies
 
-npm install
+``npm install``
 
 4. Start the development server
 
-npm run dev
+``npm run dev``
 
 This will start a development server and open the game in your browser. The game will automatically reload as you make changes to the code.
 
@@ -47,7 +47,7 @@ Use the arrow keys to move the character left and right and the space bar to jum
 
 To build the game for production, run the following command:
 
-npm run build
+``npm run build``
 
 
 
