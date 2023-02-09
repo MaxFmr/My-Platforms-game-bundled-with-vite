@@ -21,7 +21,7 @@ Welcome to the Platform Game Project, a classic side-scrolling platformer built 
 
 1. Clone the repository
 
-$git clone https://github.com/[YourGithubUsername]/platform-game-project.git
+git clone https://github.com/[YourGithubUsername]/platform-game-project.git
 
 
 2. Navigate to the project directory
