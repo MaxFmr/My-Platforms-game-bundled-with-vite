@@ -72,6 +72,11 @@ const player = new Player();
 const platforms = [
   new Platform({ x: -1, y: 470, image: platformImage }),
   new Platform({ x: platformImage.width - 3, y: 470, image: platformImage }),
+  new Platform({
+    x: platformImage.width * 2 + 100,
+    y: 470,
+    image: platformImage,
+  }),
 ];
 
 const genericObjects = [
@@ -191,3 +196,5 @@ addEventListener('keyup', ({ key }) => {
       break;
   }
 });
+
+// Path: index.html
