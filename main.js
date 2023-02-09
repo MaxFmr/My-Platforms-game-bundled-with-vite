@@ -1,8 +1,10 @@
+import platform from './assets/platform.png';
+
 const canvas = document.querySelector('canvas');
 
 const ctx = canvas.getContext('2d');
-canvas.width = innerWidth;
-canvas.height = innerHeight;
+canvas.width = 1024;
+canvas.height = 576;
 console.log(ctx);
 const gravity = 0.5;
 
@@ -32,22 +34,23 @@ class Player {
 }
 
 class Platform {
-  constructor({ x, y }) {
+  constructor({ x, y, image }) {
     this.position = { x, y };
-    this.height = 20;
-    this.width = 200;
+    this.image = image;
+
+    this.height = image.height;
+    this.width = image.width;
   }
   draw() {
-    ctx.fillStyle = 'blue';
-
-    ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+    ctx.drawImage(this.image, this.position.x, this.position.y);
   }
 }
-
+const image = new Image();
+image.src = platform;
 const player = new Player();
 const platforms = [
-  new Platform({ x: 500, y: 600 }),
-  new Platform({ x: 200, y: 400 }),
+  new Platform({ x: -1, y: 470, image }),
+  new Platform({ x: image.width - 3, y: 470, image }),
 ];
 
 const keys = {
@@ -63,9 +66,9 @@ let scrollOffset = 0;
 
 function animate() {
   requestAnimationFrame(animate);
+  ctx.fillStyle = 'white';
 
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  player.update();
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
   platforms.forEach((platform) => {
     platform.draw();
   });
@@ -104,6 +107,7 @@ function animate() {
   });
   if (scrollOffset > 1000) {
   }
+  player.update();
 }
 
 animate();
