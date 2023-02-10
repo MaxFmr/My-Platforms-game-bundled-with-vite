@@ -92,6 +92,7 @@ let keys = {
 };
 
 let scrollOffset = 0;
+
 function init() {
   player = new Player();
   platforms = [
@@ -108,14 +109,6 @@ function init() {
     new GenericObject({ x: -1, y: -1, image: createImage(background) }),
     new GenericObject({ x: -1, y: -1, image: createImage(hills) }),
   ];
-  keys = {
-    right: {
-      pressed: false,
-    },
-    left: {
-      pressed: false,
-    },
-  };
 
   scrollOffset = 0;
 }
