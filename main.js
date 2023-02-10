@@ -69,20 +69,9 @@ function createImage(imageSrc) {
 const platformImage = createImage(platform);
 
 let player = new Player();
-let platforms = [
-  new Platform({ x: -1, y: 470, image: platformImage }),
-  new Platform({ x: platformImage.width - 3, y: 470, image: platformImage }),
-  new Platform({
-    x: platformImage.width * 2 + 100,
-    y: 470,
-    image: platformImage,
-  }),
-];
+let platforms = [];
 
-let genericObjects = [
-  new GenericObject({ x: -1, y: -1, image: createImage(background) }),
-  new GenericObject({ x: -1, y: -1, image: createImage(hills) }),
-];
+let genericObjects = [];
 let keys = {
   right: {
     pressed: false,
@@ -184,7 +173,7 @@ async function animate() {
   });
   player.update();
 }
-
+init();
 animate();
 
 addEventListener('keydown', ({ key }) => {
