@@ -31,7 +31,7 @@ class Player {
 
     if (this.position.y + this.height + this.velocity.y <= canvas.height) {
       this.velocity.y += gravity;
-    } else this.velocity.y = 0;
+    }
   }
 }
 
@@ -65,11 +65,10 @@ function createImage(imageSrc) {
   image.src = imageSrc;
   return image;
 }
-
 const platformImage = createImage(platform);
 
-const player = new Player();
-const platforms = [
+let player = new Player();
+let platforms = [
   new Platform({ x: -1, y: 470, image: platformImage }),
   new Platform({ x: platformImage.width - 3, y: 470, image: platformImage }),
   new Platform({
@@ -79,12 +78,11 @@ const platforms = [
   }),
 ];
 
-const genericObjects = [
+let genericObjects = [
   new GenericObject({ x: -1, y: -1, image: createImage(background) }),
   new GenericObject({ x: -1, y: -1, image: createImage(hills) }),
 ];
-
-const keys = {
+let keys = {
   right: {
     pressed: false,
   },
@@ -94,8 +92,35 @@ const keys = {
 };
 
 let scrollOffset = 0;
+function init() {
+  player = new Player();
+  platforms = [
+    new Platform({ x: -1, y: 470, image: platformImage }),
+    new Platform({ x: platformImage.width - 3, y: 470, image: platformImage }),
+    new Platform({
+      x: platformImage.width * 2 + 100,
+      y: 470,
+      image: platformImage,
+    }),
+  ];
 
-function animate() {
+  genericObjects = [
+    new GenericObject({ x: -1, y: -1, image: createImage(background) }),
+    new GenericObject({ x: -1, y: -1, image: createImage(hills) }),
+  ];
+  keys = {
+    right: {
+      pressed: false,
+    },
+    left: {
+      pressed: false,
+    },
+  };
+
+  scrollOffset = 0;
+}
+
+async function animate() {
   requestAnimationFrame(animate);
   ctx.fillStyle = 'white';
 
@@ -115,6 +140,7 @@ function animate() {
     player.velocity.x = -5;
   } else {
     player.velocity.x = 0;
+
     if (keys.right.pressed) {
       scrollOffset += 5;
 
@@ -147,7 +173,18 @@ function animate() {
     )
       player.velocity.y = 0;
   });
-  if (scrollOffset > 1000) {
+
+  //win condition
+
+  if (scrollOffset > 2000) {
+    alert('You win!');
+  }
+  //lose condition
+
+  if (player.position.y + player.height > canvas.height) {
+    init();
+
+    alert('You lose!');
   }
   player.update();
 }
@@ -192,7 +229,6 @@ addEventListener('keyup', ({ key }) => {
 
       break;
     case 'ArrowDown':
-      console.log('D');
       break;
   }
 });
