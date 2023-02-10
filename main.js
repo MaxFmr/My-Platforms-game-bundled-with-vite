@@ -16,6 +16,7 @@ class Player {
     this.velocity = { x: 0, y: 0 };
     this.height = 50;
     this.width = 50;
+    this.speed = 10;
   }
 
   draw() {
@@ -94,6 +95,9 @@ let keys = {
 let scrollOffset = 0;
 
 function init() {
+  keys.left.pressed = false;
+  keys.right.pressed = false;
+
   player = new Player();
   platforms = [
     new Platform({ x: -1, y: 470, image: platformImage }),
@@ -112,7 +116,6 @@ function init() {
 
   scrollOffset = 0;
 }
-
 async function animate() {
   requestAnimationFrame(animate);
   ctx.fillStyle = 'white';
@@ -123,34 +126,30 @@ async function animate() {
     genericObject.draw();
   });
 
-  platforms.forEach((platform) => {
-    platform.draw();
-  });
-
   if (keys.right.pressed && player.position.x < 400) {
-    player.velocity.x = 5;
+    player.velocity.x = player.speed;
   } else if (keys.left.pressed && player.position.x > 100) {
-    player.velocity.x = -5;
+    player.velocity.x = -player.speed;
   } else {
     player.velocity.x = 0;
 
     if (keys.right.pressed) {
-      scrollOffset += 5;
+      scrollOffset += player.speed;
 
       platforms.forEach((platform) => {
-        platform.position.x -= 5;
+        platform.position.x -= player.speed;
       });
       genericObjects.forEach((genericObject) => {
-        genericObject.position.x -= 3;
+        genericObject.position.x -= player.speed * 0.66;
       });
     } else if (keys.left.pressed) {
-      scrollOffset -= 5;
+      scrollOffset -= player.speed;
 
       platforms.forEach((platform) => {
-        platform.position.x += 5;
+        platform.position.x += player.speed;
       });
       genericObjects.forEach((genericObject) => {
-        genericObject.position.x += 3;
+        genericObject.position.x += player.speed * 0.66;
       });
     }
   }
@@ -171,6 +170,7 @@ async function animate() {
 
   if (scrollOffset > 2000) {
     alert('You win!');
+    init();
   }
   //lose condition
 
@@ -179,6 +179,9 @@ async function animate() {
 
     alert('You lose!');
   }
+  platforms.forEach((platform) => {
+    platform.draw();
+  });
   player.update();
 }
 
@@ -200,11 +203,11 @@ addEventListener('keydown', ({ key }) => {
       break;
     case 'ArrowUp':
       console.log('u');
-      player.velocity.y -= 18;
+      player.velocity.y -= 10;
       break;
     case ' ':
       console.log('u');
-      player.velocity.y -= 18;
+      player.velocity.y -= 10;
       break;
   }
 });
