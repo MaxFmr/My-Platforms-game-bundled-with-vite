@@ -142,7 +142,7 @@ async function animate() {
       });
     }
   }
-  //platform detection
+  //platforms detection
 
   platforms.forEach((platform) => {
     if (
